@@ -32,13 +32,11 @@ export default function RootLayout({
           <HeaderBar></HeaderBar>
         </header>
         <main>
-          <div className="flex items-center w-full">
-            <div className="flex-initial w-56 h-[calc(100vh_-_62px)]">
+          <div className="flex w-full">
+            <div className="flex-initial w-60 h-[calc(100vh_-_62px)]">
               <SideBar></SideBar>
             </div>
-            <div>
-              {children}
-            </div>
+            {children}
           </div>
         </main>
       </ThemeProvider>
