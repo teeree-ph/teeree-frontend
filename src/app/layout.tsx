@@ -1,6 +1,10 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
+import {ThemeProvider} from "@/components/theme-provider";
+import {HeaderBar} from "@/components/header-bar";
+import {SideBar} from "@/components/side-bar";
+import React from "react";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -14,9 +18,31 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+
   return (
-    <html lang="en">
-      <body className={inter.className}>{children}</body>
+    <html lang="en" className="w-full h-full">
+      <body className={inter.className + "h-full"}>
+      <ThemeProvider
+        attribute="class"
+        defaultTheme="system"
+        enableSystem
+        disableTransitionOnChange
+      >
+        <header className="top-0 w-full">
+          <HeaderBar></HeaderBar>
+        </header>
+        <main>
+          <div className="flex items-center w-full">
+            <div className="flex-initial w-56 h-[calc(100vh_-_62px)]">
+              <SideBar></SideBar>
+            </div>
+            <div>
+              {children}
+            </div>
+          </div>
+        </main>
+      </ThemeProvider>
+      </body>
     </html>
   );
 }
