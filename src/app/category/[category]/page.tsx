@@ -18,7 +18,7 @@ interface CategoryProps {
 export default function CategoryPage({ params }: CategoryProps) {
   return (
     <>
-      <div className="flex flex-col space-y-2 w-full pt-5 pl-20 pr-20 xl:pl-44 xl:pr-44">
+      <div className="flex-2 flex-col space-y-2 w-full pt-5 pl-20 pr-20 xl:pl-44 xl:pr-44">
         <Alert>
           <Megaphone className="w-5"></Megaphone>
           <AlertTitle>板块公告</AlertTitle>

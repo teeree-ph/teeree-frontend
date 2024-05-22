@@ -30,7 +30,7 @@ export function SideBar() {
     .findLast(() => true)!!;
 
   const [selected, setSelected] =
-    useState<string>(cate.find((c) => c.link === current)!!.name);
+    useState<string>(cate.find((c) => c.link === current)?.name ?? '');
 
   function categories(categories: Array<Category>) {
     return categories.map((category) => {
