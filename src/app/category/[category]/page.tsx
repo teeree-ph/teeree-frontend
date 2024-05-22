@@ -5,6 +5,7 @@ import {Alert, AlertDescription, AlertTitle} from "@/components/ui/alert";
 import {Card, CardContent} from "@/components/ui/card";
 import {Badge} from "@/components/ui/badge";
 import {Separator} from "@/components/ui/separator";
+import Link from "next/link";
 
 interface CategoryParams {
   category: string
@@ -36,9 +37,11 @@ export default function CategoryPage({ params }: CategoryProps) {
                 <p className="text-sm text-muted-foreground">2 小时前</p>
               </div>
               <div>
-                两，两斤土豆，炖肉吃，一大盆，不就米饭，碾碎了往嘴里kuai着吃的，感觉自己像头活猪
-                (`ᝫ´ )
-                蛋白质，碳水，脂肪大集合，罪过罪过，又要胖三斤了……
+                <Link href="" className="hover:underline">
+                  两，两斤土豆，炖肉吃，一大盆，不就米饭，碾碎了往嘴里kuai着吃的，感觉自己像头活猪
+                  (`ᝫ´ )
+                  蛋白质，碳水，脂肪大集合，罪过罪过，又要胖三斤了……
+                </Link>
               </div>
               <Separator></Separator>
               <div className="flex space-x-2 items-start">
