@@ -30,7 +30,7 @@ export default function CategoryPage({ params }: CategoryProps) {
 
   function postPreviews(posts: Array<Post>) {
     return posts.map((post: Post) => (
-      <PostPreview post={post}></PostPreview>
+      <PostPreview key={post.id} post={post}></PostPreview>
     ))
   }
 

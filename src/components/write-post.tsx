@@ -6,31 +6,36 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger
 } from "@/components/ui/alert-dialog";
-import {Bold, Italic, LinkIcon, Pen, Underline} from "lucide-react";
+import {Pen} from "lucide-react";
 import {Button} from "@/components/ui/button";
-import {Textarea} from "@/components/ui/textarea";
 import {Input} from "@/components/ui/input";
 import {useForm} from "react-hook-form";
 import {z} from "zod";
 import {zodResolver} from "@hookform/resolvers/zod";
 import {Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage} from "@/components/ui/form";
 import {Select, SelectContent, SelectItem, SelectTrigger, SelectValue} from "@/components/ui/select";
+import {RichTextEditor} from "@/components/text-editor";
 
 const maxFileSize = 500000
 const accepted_image_types = ["image/jpeg", "image/jpg", "image/png", "image/webp"]
 
 const formSchema = z.object({
-  category: z.string(),
-  content: z.string().max(200, {
-    message: "串的字数必须在 200 字以内"
-  }),
-  image: z
-    .custom<FileList>()
-    .refine((files) => files[0].size <= maxFileSize, `文件大小不能超过 5MB.`)
+  category: z.string({ required_error: "请选择一个分类" }),
+  content: z
+    .string({ required_error: "不得输入空白内容" })
+    .trim()
     .refine(
-      (files) => accepted_image_types.includes(files[0].type),
+      (text) => text.replace(/<\/?[^>]*>/g, '')  !== '',
+      '不得输入空白内容'
+    ),
+  image: z
+    .custom<File>()
+    .refine((file) => file.size <= maxFileSize, `文件大小不能超过 5MB.`)
+    .refine(
+      (file) => accepted_image_types.includes(file?.type),
       "只能上传 .jpg，.jpeg，.png 和 .webp 的图片"
     )
+    .optional()
 })
 
 export function WritePost() {
@@ -62,7 +67,7 @@ export function WritePost() {
               <FormItem>
                 <FormLabel>分类</FormLabel>
                 <FormControl>
-                  <Select {...field}>
+                  <Select onValueChange={field.onChange}>
                     <SelectTrigger>
                       <SelectValue placeholder="选择一个分类"></SelectValue>
                     </SelectTrigger>
@@ -76,6 +81,7 @@ export function WritePost() {
                 <FormDescription>
                   分类是左侧边栏中的那些类别。
                 </FormDescription>
+                <FormMessage/>
               </FormItem>
             )}
           />
@@ -85,22 +91,12 @@ export function WritePost() {
             render={({ field }) => (
               <FormItem>
                 <FormLabel>内容</FormLabel>
-                <div className="flex justify-start space-x-1">
-                  <Button variant="ghost" size="icon">
-                    <Bold className="h-4 w-4"/>
-                  </Button>
-                  <Button variant="ghost" size="icon">
-                    <Italic className="h-4 w-4"/>
-                  </Button>
-                  <Button variant="ghost" size="icon">
-                    <Underline className="h-4 w-4"/>
-                  </Button>
-                  <Button variant="ghost" size="icon">
-                    <LinkIcon className="h-4 w-4"/>
-                  </Button>
-                </div>
+
                 <FormControl>
-                  <Textarea {...field}></Textarea>
+                  <RichTextEditor
+                    content={field.value}
+                    onChange={field.onChange}
+                  ></RichTextEditor>
                 </FormControl>
                 <FormDescription>
                   请不要发布违规内容。
@@ -112,10 +108,18 @@ export function WritePost() {
           <FormField
             control={form.control}
             name="image"
-            render={({field}) => (
+            render={({field: { value, onChange, ...fieldProps}}) => (
               <FormItem>
                 <FormControl>
-                  <Input id="picture" type="file" />
+                  <Input
+                    {...fieldProps}
+                    id="picture"
+
+                    type="file"
+                    onChange={(event) => {
+                      onChange(event.target.files && event.target.files[0])
+                    }}
+                  />
                 </FormControl>
                 <FormDescription>
                   你可以上传 4 个大小不超过 5MB 的图片。
