@@ -17,7 +17,7 @@ import {Select, SelectContent, SelectItem, SelectTrigger, SelectValue} from "@/c
 import {RichTextEditor} from "@/components/text-editor";
 
 const maxFileSize = 500000
-const accepted_image_types = ["image/jpeg", "image/jpg", "image/png", "image/webp"]
+const acceptedImageTypes = ["image/jpeg", "image/jpg", "image/png", "image/webp"]
 
 const formSchema = z.object({
   category: z.string({ required_error: "请选择一个分类" }),
@@ -32,7 +32,7 @@ const formSchema = z.object({
     .custom<File>()
     .refine((file) => file.size <= maxFileSize, `文件大小不能超过 5MB.`)
     .refine(
-      (file) => accepted_image_types.includes(file?.type),
+      (file) => acceptedImageTypes.includes(file?.type),
       "只能上传 .jpg，.jpeg，.png 和 .webp 的图片"
     )
     .optional()

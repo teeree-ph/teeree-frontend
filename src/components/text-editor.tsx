@@ -1,9 +1,15 @@
 import {Editor, EditorContent, useEditor} from "@tiptap/react";
 import {StarterKit} from "@tiptap/starter-kit";
 import {Toggle} from "@/components/ui/toggle";
-import {Bold, Italic, List, ListOrdered, Strikethrough} from "lucide-react";
+import {Bold, Italic, List, ListOrdered, Strikethrough, Code as CodeIcon} from "lucide-react";
 import {Separator} from "@/components/ui/separator";
 import {CharacterCount} from "@tiptap/extension-character-count";
+import "katex/dist/katex.min.css";
+import {Mathematics} from "@tiptap-pro/extension-mathematics";
+import '../app/text-editor.css';
+import {Code} from "@tiptap/extension-code";
+import {Link} from "@tiptap/extension-link";
+import {Strike} from "@tiptap/extension-strike";
 
 export function RichTextEditor({ content, onChange }: { content: string, onChange: (content: string) => void}) {
   const editor = useEditor({
@@ -28,7 +34,11 @@ export function RichTextEditor({ content, onChange }: { content: string, onChang
       }),
       CharacterCount.configure({
         limit: 200,
-      })
+      }),
+      Mathematics,
+      Code,
+      Link,
+      Strike
     ],
     content: content,
     onUpdate({ editor }) {
@@ -69,6 +79,13 @@ function RichTextEditorToolbar({ editor }: { editor: Editor }) {
         onPressedChange={() => editor.chain().focus().toggleStrike().run()}
       >
         <Strikethrough className="h-4 w-4" />
+      </Toggle>
+      <Toggle
+        size="sm"
+        pressed={editor.isActive("code")}
+        onPressedChange={() => editor.chain().focus().toggleCodeBlock().run()}
+      >
+        <CodeIcon className="h-4 w-4" />
       </Toggle>
       <Separator orientation="vertical" className="w-[1px] h-8" />
       <Toggle
