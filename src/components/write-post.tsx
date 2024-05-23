@@ -1,7 +1,7 @@
 'use client'
 
 import {
-  AlertDialog, AlertDialogContent,
+  AlertDialog, AlertDialogCancel, AlertDialogContent,
   AlertDialogDescription, AlertDialogFooter, AlertDialogHeader,
   AlertDialogTitle,
   AlertDialogTrigger
@@ -126,7 +126,7 @@ export function WritePost() {
           />
           <AlertDialogFooter>
             <Button type="submit">提交</Button>
-            <Button type="reset">取消</Button>
+            <AlertDialogCancel type="reset">取消</AlertDialogCancel>
           </AlertDialogFooter>
         </form>
       </Form>

@@ -56,15 +56,15 @@ export function SideBar() {
           <h3 className="ml-5 text-lg font-bold flex flex-row items-center">
             <Ghost className="w-5 mr-1"></Ghost> 休闲
           </h3>
-          <ScrollArea className="h-40 mt-2 space-y-1">
+          <div className="h-40 mt-2 space-y-1 overflow-y-scroll">
             {categories(cate.filter((c) => c.type === 'casual'))}
-          </ScrollArea>
+          </div>
           <h3 className="ml-5 mt-5 text-lg font-bold flex flex-row items-center">
             <LibraryBig className="w-5 mr-1"></LibraryBig> 学术
           </h3>
-          <ScrollArea className="w-full h-50 mt-2 space-y-1">
+          <div className="w-full h-50 mt-2 space-y-1 overflow-y-scroll">
             {categories(cate.filter((c) => c.type === 'course'))}
-          </ScrollArea>
+          </div>
         </div>
         <div className="border-[0.9px]"></div>
       </div>

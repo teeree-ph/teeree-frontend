@@ -33,7 +33,7 @@ export default function RootLayout({
         </header>
         <main>
           <div className="flex w-full">
-            <div className="flex-2 w-62 h-[calc(100vh_-_62px)]">
+            <div className="flex-2 w-62 h-[calc(100vh_-_64px)]">
               <SideBar></SideBar>
             </div>
             {children}
