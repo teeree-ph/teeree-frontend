@@ -91,7 +91,6 @@ export function WritePost() {
             render={({ field }) => (
               <FormItem>
                 <FormLabel>内容</FormLabel>
-
                 <FormControl>
                   <RichTextEditor
                     content={field.value}

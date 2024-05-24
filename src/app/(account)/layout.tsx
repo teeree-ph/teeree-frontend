@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "../globals.css";
-import {ThemeProvider} from "@/components/theme-provider";
 import React from "react";
 import {ModeToggle} from "@/components/mode-toggle";
 import {Toaster} from "@/components/ui/toaster";

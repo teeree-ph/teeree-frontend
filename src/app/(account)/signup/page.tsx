@@ -85,7 +85,7 @@ export default function SignupPage() {
                       <FormControl>
                         <div className="flex w-full max-w-sm items-center space-x-2">
                           <Input {...field} />
-                          <Button>验证码</Button>
+                          <Button type="button">验证码</Button>
                         </div>
                       </FormControl>
                       <FormMessage />
