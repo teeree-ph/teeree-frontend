@@ -34,10 +34,10 @@ export default function SignInPage() {
 
   return (
     <>
-      <div className="flex justify-items-center items-center w-full h-full">
+      <div className="flex justify-center items-center w-full h-full">
         <Card className="w-[350px] lg:w-[400px]">
           <CardHeader>
-            <CardTitle>欢迎</CardTitle>
+            <CardTitle>欢迎回来</CardTitle>
             <CardDescription>登录你的账户</CardDescription>
           </CardHeader>
           <CardContent>

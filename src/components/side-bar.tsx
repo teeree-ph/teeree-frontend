@@ -56,7 +56,7 @@ export function SideBar() {
           <h3 className="ml-5 text-lg font-bold flex flex-row items-center">
             <Ghost className="w-5 mr-1"></Ghost> 休闲
           </h3>
-          <div className="h-40 mt-2 space-y-1 overflow-y-scroll">
+          <div className="h-50 mt-2 space-y-1 overflow-y-scroll">
             {categories(cate.filter((c) => c.type === 'casual'))}
           </div>
           <h3 className="ml-5 mt-5 text-lg font-bold flex flex-row items-center">
