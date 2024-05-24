@@ -1,7 +1,7 @@
 import {Editor, EditorContent, useEditor} from "@tiptap/react";
 import {StarterKit} from "@tiptap/starter-kit";
 import {Toggle} from "@/components/ui/toggle";
-import {Bold, Italic, List, ListOrdered, Strikethrough, Code as CodeIcon} from "lucide-react";
+import {Bold, Italic, List, ListOrdered, Strikethrough, Code as CodeIcon, BarChartBig} from "lucide-react";
 import {Separator} from "@/components/ui/separator";
 import {CharacterCount} from "@tiptap/extension-character-count";
 import "katex/dist/katex.min.css";
@@ -10,8 +10,19 @@ import '../app/text-editor.css';
 import {Code} from "@tiptap/extension-code";
 import {Link} from "@tiptap/extension-link";
 import {Strike} from "@tiptap/extension-strike";
+import {useState} from "react";
+import {Popover, PopoverContent, PopoverTrigger} from "@/components/ui/popover";
+import {Button} from "@/components/ui/button";
+import {Form} from "@/components/ui/form";
+import {z} from "zod";
 
-export function RichTextEditor({ content, onChange }: { content: string, onChange: (content: string) => void}) {
+export interface Poll {
+  options: Array<string>,
+  end: Date
+}
+
+export function RichTextEditor({ onChange }: { onChange: (content: string, poll: Poll | undefined) => void }) {
+  const [poll, setPoll] = useState<Poll>();
   const editor = useEditor({
     editorProps: {
       attributes: {
@@ -40,9 +51,9 @@ export function RichTextEditor({ content, onChange }: { content: string, onChang
       Link,
       Strike
     ],
-    content: content,
+    content: '',
     onUpdate({ editor }) {
-      onChange(editor.getHTML())
+      onChange(editor.getHTML(), poll)
     },
   })
 
@@ -50,13 +61,21 @@ export function RichTextEditor({ content, onChange }: { content: string, onChang
     <>
       <div className="p-0">
         <EditorContent editor={editor} />
-        {editor ? <RichTextEditorToolbar editor={editor} /> : null}
+        {editor ? <RichTextEditorToolbar editor={editor} onChange={(p) => {
+          setPoll(p)
+          onChange(editor?.getHTML(), poll)
+        }} /> : null}
       </div>
     </>
   )
 }
 
-function RichTextEditorToolbar({ editor }: { editor: Editor }) {
+const formSchema = z.object({
+  
+})
+
+function RichTextEditorToolbar({ editor, onChange }: { editor: Editor, onChange: (poll: Poll) => void }) {
+
   return (
     <div className="border border-input bg-transparent rounded-br-md rounded-bl-md p-1 flex flex-row items-center gap-1">
       <Toggle
@@ -102,7 +121,27 @@ function RichTextEditorToolbar({ editor }: { editor: Editor }) {
       >
         <ListOrdered className="h-4 w-4" />
       </Toggle>
-      <p className="ml-auto mr-2 text-sm text-muted-foreground">{editor.storage.characterCount.characters()} / 200 字符</p>
+      <Separator orientation="vertical" className="w-[1px] h-8" />
+      <Popover>
+        <PopoverTrigger asChild>
+          <Button variant="ghost" size="sm">
+            <BarChartBig className="h-4 w-4"></BarChartBig>
+          </Button>
+        </PopoverTrigger>
+        <PopoverContent className="w-80 h-80">
+          <div className="space-y-2">
+            <h4 className="font-medium leading-none">创建投票</h4>
+            <p className="text-sm text-muted-foreground">
+              请在此设定选项和结束日期。
+            </p>
+          </div>
+          <Form>
+
+          </Form>
+        </PopoverContent>
+      </Popover>
+      <p className="ml-auto mr-2 text-sm text-muted-foreground">{editor.storage.characterCount.characters()} / 200
+        字符</p>
     </div>
   );
 }

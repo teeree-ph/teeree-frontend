@@ -14,20 +14,23 @@ import {z} from "zod";
 import {zodResolver} from "@hookform/resolvers/zod";
 import {Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage} from "@/components/ui/form";
 import {Select, SelectContent, SelectItem, SelectTrigger, SelectValue} from "@/components/ui/select";
-import {RichTextEditor} from "@/components/text-editor";
+import {Poll, RichTextEditor} from "@/components/text-editor";
 
 const maxFileSize = 500000
 const acceptedImageTypes = ["image/jpeg", "image/jpg", "image/png", "image/webp"]
 
 const formSchema = z.object({
   category: z.string({ required_error: "请选择一个分类" }),
-  content: z
-    .string({ required_error: "不得输入空白内容" })
-    .trim()
-    .refine(
-      (text) => text.replace(/<\/?[^>]*>/g, '')  !== '',
-      '不得输入空白内容'
-    ),
+  content: z.object({
+    text: z
+      .string({ required_error: "不得输入空白内容" })
+      .trim()
+      .refine(
+        (text) => text.replace(/<\/?[^>]*>/g, '')  !== '',
+        '不得输入空白内容'
+      ),
+    poll: z.custom<Poll>().optional()
+  }),
   image: z
     .custom<File>()
     .refine((file) => file.size <= maxFileSize, `文件大小不能超过 5MB.`)
@@ -93,7 +96,6 @@ export function WritePost() {
                 <FormLabel>内容</FormLabel>
                 <FormControl>
                   <RichTextEditor
-                    content={field.value}
                     onChange={field.onChange}
                   ></RichTextEditor>
                 </FormControl>
