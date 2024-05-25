@@ -1,6 +1,12 @@
 import Detail from "@/components/post-detail"
 import { Post } from "@/components/post-detail"
-import { Breadcrumb } from "@/components/ui/breadcrumb"
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbSeparator,
+} from "@/components/ui/breadcrumb"
 
 export default async function DetailPage({
   params,
@@ -11,6 +17,7 @@ export default async function DetailPage({
   // if (!res.ok) {
   //   throw new Error("The page does not exist.")
   // }
+  const category = "闲聊"
 
   const rep = {
     id: "123123",
@@ -20,7 +27,7 @@ export default async function DetailPage({
   }
 
   const post: Post = {
-    category: "闲聊",
+    category: "talk",
     id: "1237847",
     cookie: "ejAif83",
     time: new Date(2024, 3, 5, 8, 24, 0),
@@ -45,6 +52,17 @@ export default async function DetailPage({
   return (
     <>
       <div className="flex-2 flex-col space-y-2 w-full h-[calc(100vh_-_64px)] overflow-y-scroll pt-5 pl-20 pr-20 xl:pl-44 xl:pr-44">
+        <Breadcrumb>
+          <BreadcrumbList>
+            <BreadcrumbLink href="/">
+              <BreadcrumbItem>主页</BreadcrumbItem>
+            </BreadcrumbLink>
+            <BreadcrumbSeparator />
+            <BreadcrumbLink href={`/category/${post.category}`}>
+              <BreadcrumbItem>{category}</BreadcrumbItem>
+            </BreadcrumbLink>
+          </BreadcrumbList>
+        </Breadcrumb>
         <Detail post={post} />
       </div>
     </>

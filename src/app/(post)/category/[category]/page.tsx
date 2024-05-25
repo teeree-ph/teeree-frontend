@@ -3,6 +3,7 @@
 import {Megaphone} from "lucide-react";
 import {Alert, AlertDescription, AlertTitle} from "@/components/ui/alert";
 import {PostPreview, Preview} from "@/components/post-preview";
+import { Breadcrumb, BreadcrumbList, BreadcrumbLink, BreadcrumbItem, BreadcrumbSeparator } from "@/components/ui/breadcrumb";
 
 interface CategoryParams {
   category: string
@@ -13,6 +14,8 @@ interface CategoryProps {
 }
 
 export default function CategoryPage({ params }: CategoryProps) {
+  const category = "闲聊"
+
   const posts: Array<PostPreview> = [
     {
       category: '闲聊',
@@ -36,7 +39,18 @@ export default function CategoryPage({ params }: CategoryProps) {
 
   return (
     <>
-      <div className="flex-2 flex-col space-y-2 w-full h-[calc(100vh_-_64px)] overflow-y-scroll pt-5 pl-20 pr-20 xl:pl-44 xl:pr-44">
+      <div className="flex-2 flex-col space-y-2 w-full h-[calc(100vh_-_64px)] overflow-y-scroll pt-5 pl-20 pr-20 xl:pl-44 xl:pr-44"> 
+      <Breadcrumb>
+          <BreadcrumbList>
+            <BreadcrumbLink href="/">
+              <BreadcrumbItem>主页</BreadcrumbItem>
+            </BreadcrumbLink>
+            <BreadcrumbSeparator />
+            <BreadcrumbLink href={`/category/${params.category}`}>
+              <BreadcrumbItem>{category}</BreadcrumbItem>
+            </BreadcrumbLink>
+          </BreadcrumbList>
+        </Breadcrumb>
         <Alert>
           <Megaphone className="w-5"></Megaphone>
           <AlertTitle>板块公告</AlertTitle>
