@@ -2,10 +2,11 @@
 
 # editor
 .vscode/
+.idea/
 
 # dependencies
 /node_modules
-/.pnp
+/.pnpreload
 .pnp.js
 .yarn/install-state.gz
 

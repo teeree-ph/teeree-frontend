@@ -2,7 +2,7 @@
 
 import {Megaphone} from "lucide-react";
 import {Alert, AlertDescription, AlertTitle} from "@/components/ui/alert";
-import {Post, PostPreview} from "@/components/post-preview";
+import {PostPreview, Preview} from "@/components/post-preview";
 
 interface CategoryParams {
   category: string
@@ -13,7 +13,7 @@ interface CategoryProps {
 }
 
 export default function CategoryPage({ params }: CategoryProps) {
-  const posts: Array<Post> = [
+  const posts: Array<PostPreview> = [
     {
       category: '闲聊',
       id: '1237847',
@@ -24,13 +24,13 @@ export default function CategoryPage({ params }: CategoryProps) {
         (\`ᝫ´ )
         蛋白质，碳水，脂肪大集合，罪过罪过，又要胖三斤了……
       `,
-      comments: 5
+      repliesCount: 5
     }
   ]
 
-  function postPreviews(posts: Array<Post>) {
-    return posts.map((post: Post) => (
-      <PostPreview key={post.id} post={post}></PostPreview>
+  function postPreviews(posts: Array<PostPreview>) {
+    return posts.map((post: PostPreview) => (
+      <Preview key={post.id} post={post}></Preview>
     ))
   }
 
