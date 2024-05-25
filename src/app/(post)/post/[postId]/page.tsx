@@ -1,5 +1,6 @@
 import Detail from "@/components/post-detail"
 import { Post } from "@/components/post-detail"
+import { Breadcrumb } from "@/components/ui/breadcrumb"
 
 export default async function DetailPage({
   params,
@@ -34,7 +35,7 @@ export default async function DetailPage({
       {
         id: "123456",
         cookie: "ejAif83",
-        time: new Date(),
+        time: new Date(2024),
         content: "123",
         replyTo: rep,
       },

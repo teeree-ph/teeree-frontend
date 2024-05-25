@@ -12,14 +12,12 @@ export default function ReplyPreview({ reply }: { reply: Reply }) {
             <p className="font-bold">No.{reply.id}</p>
             <p className="font-mono">{reply.cookie}</p>
             {reply.replyTo ? (
-              <p className="flex">
+              <span className="flex">
                 回复
                 <p className="font-bold">
-                  <Link href="">
                   No.{reply.replyTo.id}
-                  </Link>
                 </p>
-              </p>
+              </span>
             ) : null}
             <p className="text-sm text-muted-foreground">
               {timeBefore(reply.time)}
