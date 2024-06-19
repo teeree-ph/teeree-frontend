@@ -32,7 +32,7 @@ export function Preview({ post }: PreviewProps ) {
               <p className="text-sm text-muted-foreground">{timeBefore(post.time)}</p>
             </div>
             <div>
-              <Link href="" className="hover:underline">
+              <Link href={`/post/${post.id}`} className="hover:underline">
                 {post.content}
               </Link>
             </div>

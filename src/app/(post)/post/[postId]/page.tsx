@@ -61,6 +61,10 @@ export default async function DetailPage({
             <BreadcrumbLink href={`/category/${post.category}`}>
               <BreadcrumbItem>{category}</BreadcrumbItem>
             </BreadcrumbLink>
+            <BreadcrumbSeparator />
+            <BreadcrumbLink href="">
+              <BreadcrumbItem>No.{params.postId}</BreadcrumbItem>
+            </BreadcrumbLink>
           </BreadcrumbList>
         </Breadcrumb>
         <Detail post={post} />
